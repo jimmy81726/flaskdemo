@@ -21,8 +21,8 @@ def update_db():
 
 @app.route('/pm25-charts')
 def pm25_charts():
-
-    return render_template('./pm25-charts-bulma.html')
+    countys=['臺北市','桃園市', '嘉義縣', '新竹市', '臺南市', '澎湖縣', '金門縣', '臺中市', '苗栗縣', '宜蘭縣', '基隆市', '臺東縣', '花蓮縣', '新北市', '南投縣', '屏東縣', '嘉義市', '彰化縣', '高雄市', '雲林縣', '新竹縣', '連江縣']
+    return render_template('./pm25-charts-bulma.html',countys=countys)
 
 @app.route('/pm25-data/<county>')
 def get_county_pm25_data(county):

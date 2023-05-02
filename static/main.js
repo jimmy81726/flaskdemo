@@ -13,6 +13,13 @@ $(document).ready(() => {
   drawPM25();
 });
 
+// 監聽按鈕
+document.querySelector("#county_btn").addEventListener("click", () => {
+  let county = document.querySelector("#select_county").value;
+  console.log(county);
+  drawCountyPM25(county);
+});
+
 window.onresize = function () {
   chart.resize();
   chart1.resize();
@@ -141,7 +148,7 @@ function drawPM25() {
       $("#date").text(data["date"]);
 
       drawSixPM25();
-      drawCountyPM25("臺中市");
+      drawCountyPM25("臺北市");
     },
     error: () => {
       chart2.hideLoading();
