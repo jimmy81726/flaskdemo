@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from datetime import datetime
-from pm25 import get_pm25,get_pm25_db,get_six_pm25
+from pm25 import get_pm25,get_pm25_db,get_six_pm25,get_county_pm25
 import json
 
 app = Flask(__name__)
@@ -24,6 +24,16 @@ def pm25_charts():
 
     return render_template('./pm25-charts-bulma.html')
 
+@app.route('/pm25-data/<county>')
+def get_county_pm25_data(county):
+    result=get_county_pm25(county)
+    datas = {
+        'site': [data[0] for data in result],    
+        'pm25': [data[1] for data in result],     
+    }
+
+    return json.dumps(datas,ensure_ascii=False)
+
 
 @app.route('/pm25-six-data')
 def get_six_pm25_data():
@@ -37,7 +47,7 @@ def get_six_pm25_data():
 
 @app.route('/pm25-data', methods=['POST'])
 def get_pm25_data():
-    columns, values = get_pm25_db()
+    columns, values = get_pm25()
 
     datas={'error':'連線錯誤!'}
     if values is not None:
